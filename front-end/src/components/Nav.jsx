@@ -6,7 +6,7 @@ const Nav = () => {
 
     const [visible, setvisible] = useState(false)
 
-    console.log(visible)
+    // console.log(visible)
 
   return (
     <div className='flex items-center justify-between py-5 font-medium'>
