@@ -38,7 +38,7 @@ CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 
 
-4. # Run backend
+# Run backend
 npm run server  
 
 # Run frontend
