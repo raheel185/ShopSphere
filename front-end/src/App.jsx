@@ -1,4 +1,3 @@
-import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Product from './pages/Product'
 import Cart from './pages/Cart'
