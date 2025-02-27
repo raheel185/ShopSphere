@@ -30,6 +30,7 @@ const LatestCollection = () => {
       </div>
     </div>
   )
+  
 }
 
 export default LatestCollection
