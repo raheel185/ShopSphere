@@ -15,7 +15,6 @@ const ShopContextProvider = (props) => {
             {props.children}
         </ShopContext.Provider>
     )
-
 }
 
 export default ShopContextProvider;
