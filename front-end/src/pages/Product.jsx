@@ -12,6 +12,7 @@ const Product = () => {
   const [image, setImage] = useState(false)
   const [size, setSize] = useState('')
 
+  
   const fetchProduct = async()=>{
 
     products.filter((item)=>{
@@ -20,7 +21,6 @@ const Product = () => {
         setImage(item.image[0])
         return null
       }
-     
     })
 
   }
@@ -90,8 +90,8 @@ const Product = () => {
               <p className='border px-5 py-3 text-sm'>Reviews (122)</p>
             </div>
             <div className='flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500'>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus eius dolor delectus similique soluta consequuntur laudantium nisi placeat ducimus itaque?</p>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus, odio ipsa? Quia sequi quae corporis? Earum ea reiciendis nulla blanditiis molestiae numquam quod. Delectus, ab?</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum cumque quidem delectus ut inventore, maxime placeat tempora autem quas repellendus dolorum esse incidunt sint quaerat odit ipsa possimus laudantium? Ipsam quidem doloribus possimus perspiciatis voluptatem, a amet reprehenderit nobis! Illum et dignissimos autem sit magnam. Facilis, et id. Repudiandae earum aperiam, magni voluptatibus omnis unde?</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim voluptatibus modi non nesciunt atque voluptate dolorum omnis illo quis porro inventore provident hic tenetur expedita, quidem exercitationem odit numquam reprehenderit velit ab. Et dolore animi fuga, culpa rerum incidunt deleniti?</p>
             </div>
         </div>
 
