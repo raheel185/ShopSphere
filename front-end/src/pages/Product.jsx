@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext'
+import { assets } from '../assets/assets'
 
 const Product = () => {
 
   const {productId} = useParams()
-  const {products} = useContext(ShopContext)
+  const {products, currency} = useContext(ShopContext)
 
   const [productdata, setProduct] = useState(false)
   const [image, setImage] = useState(false)
@@ -45,6 +46,22 @@ const Product = () => {
                 <div className='w-full sm:w-[80%]'>
                         <img src={image} className='w-full h-auto' alt="" />
                 </div>
+            </div>
+
+            <div className='flex-1'>
+                  <h1 className='font-medium text-2xl mt-2'>
+                        {productdata.name}
+                  </h1>
+                  <div className='flex items-center gap-1 mt-2'>
+                        <img src={assets.star_icon} alt='' className='w-3 5' />
+                        <img src={assets.star_icon} alt='' className='w-3 5' />
+                        <img src={assets.star_icon} alt='' className='w-3 5' />
+                        <img src={assets.star_icon} alt='' className='w-3 5' />
+                        <img src={assets.star_dull_icon} alt='' className='w-3 5' />
+                        <p className='pl-2'>(122)</p>
+                  </div>
+                  <p className='mt-5 text-3xl font-medium'>{currency}{productdata.price}</p>
+                  <p>{productdata.description}</p>
             </div>
 
         </div>
