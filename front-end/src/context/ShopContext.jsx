@@ -13,7 +13,7 @@ const ShopContextProvider = (props) => {
     const [showSearch, setShowSearch] = useState(false)
     const [cartItems, setCartItems] = useState({})
 
-    const getCartAmount = async () => {
+    const getCartAmount = () => {
 
         let amount = 0
         for(const items in cartItems){
