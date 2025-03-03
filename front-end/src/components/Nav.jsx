@@ -9,8 +9,6 @@ const Nav = () => {
     const [visible, setvisible] = useState(false)
     const { setShowSearch, getCartQuantity } = useContext(ShopContext)
 
-    // console.log(visible)
-
   return (
     <div className='flex items-center justify-between py-5 font-medium'>
       
