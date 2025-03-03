@@ -57,7 +57,7 @@ const Cart = () => {
                               </div>
                           </div>
                       </div>
-                      <input className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' type="number" min={1} defaultValue={item.quantity} />
+                      <input onChange={(e)=>updateQuantity(item._id, item.size, e.target.value)} className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' type="number" min={1} defaultValue={item.quantity} />
                       <div>
                           <img onClick={()=>updateQuantity(item._id, item.size, 0)} className='w-4 sm:w-5 cursor-pointer mr-4' src={assets.bin_icon} />
                       </div>
