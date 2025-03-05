@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { products } from "../assets/assets";
-import {ToastContainer, toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom' 
 
 export const ShopContext = createContext()
