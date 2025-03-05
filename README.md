@@ -23,7 +23,7 @@ ShopSphere is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) eCommer
 
 1. **Clone the repo**  
    ```sh
-   git clone https://github.com/your-username/shopsphere.git
+   git clone https://github.com/raheel185/ShopSphere.git
    cd shopsphere
 2. npm install
 cd client
