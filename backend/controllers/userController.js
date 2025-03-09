@@ -3,10 +3,10 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-// creating token
+// Creating token
 
 function createToken(id) {
-  return jwt.sign({ id }, process.env.JWT_SECRET);
+  return jwt.sign({ id, admin: false }, process.env.JWT_SECRET);
 }
 
 // Route for user Login
@@ -79,6 +79,24 @@ const registerUser = async (req, res) => {
   }
 };
 
-const AdminLogin = async (req, res) => {};
+const AdminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (
+      email !== process.env.ADMIN_EMAIL ||
+      password !== process.env.ADMIN_PASSWORD
+    ) {
+      res.json({ success: false, message: "Incorrect email or password" });
+    }
+
+    const token = jwt.sign({ email, admin: true }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    res.json({ status: true, token });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 export { loginUser, registerUser, AdminLogin };
