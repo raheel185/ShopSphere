@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import {toast} from 'react-toastify'
 
-const List = () => {
+const List = ({token}) => {
 
   const [list, setList] = useState([])
   
@@ -17,6 +18,20 @@ const List = () => {
       } catch (error) {
         
       }
+  }
+  
+  async function removeProduct(id){
+    try {
+      
+      const response = await axios.post('http://localhost:3000/api/product/remove', {id}, {headers:{token}})
+      if(response.data.status){
+        setList(prev => prev.filter(item => item._id !== id))
+        toast.success('Product removed')
+      }
+      
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
 
   useEffect(()=>{
@@ -38,7 +53,7 @@ const List = () => {
     </tr>
   </thead>
   <tbody>
-   {console.log(list)}
+  
    {
     list.length > 0 ?  list.map((item, index) => (
       <tr key={index} class="border-b">
@@ -47,8 +62,8 @@ const List = () => {
     <td class="px-6 py-4 text-gray-600">{item.category}</td>
     <td class="px-6 py-4 text-gray-800 font-semibold">${item.price}</td>
     <td class="px-6 py-4">
-      <button class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition">Edit</button>
-      <button class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition ml-2">Delete</button>
+      {/* <button class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition">Edit</button> */}
+      <button onClick={() => removeProduct(item._id)} class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition ml-2">Delete</button>
     </td>
   </tr>
     )) : ''
