@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import {toast} from 'react-toastify'
 
-const Login = () => {
+const Login = ({settoken}) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -10,16 +11,21 @@ const Login = () => {
     event.preventDefault()
       try {
         const res = await axios.post('http://localhost:3000/api/user/admin', {
-            "email":email,
-            "password":password
-        })
+            email,password})
 
         const data = await res.data
 
-        console.log(data)
+        if(data.status){
+          console.log('Succesfully logged in')
+          console.log(data)
+          settoken(data.token)
+        }else{
+          toast.error(data.message)
+        }
+        
 
       } catch (error) {
-
+        toast.error(error.message)
       }
   }
 
