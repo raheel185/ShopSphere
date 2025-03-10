@@ -1,7 +1,8 @@
 import react, { useState } from 'react'
 import { assets } from '../assets/assets'
-import { memo } from 'react'
 import axios from 'axios'
+import {toast} from 'react-toastify'
+
 
 const Add = ({token}) => {
 
@@ -38,13 +39,19 @@ const Add = ({token}) => {
         image2 && formdata.append('image2', image2)
         image3 && formdata.append('image3', image3)
         image4 && formdata.append('image4', image4)
+
+        const loader_notification = toast.loading("Please wait adding Product...")
         
         const response = await axios.post('http://localhost:3000/api/product/add', formdata, {headers:{token}})
 
-        console.log(response)
-        
+        if(response.data.status){
+           toast.update(loader_notification, {render: response.data.message, type: "success", isLoading: false,   autoClose: 2700, closeButton: true, })
+           setName('')
+           setDescription('')
+        }
       } catch (error) {
         console.log(error)
+        toast.update(loader_notification, {render: error.message, type: "error", isLoading: false});
       }
   }
 
