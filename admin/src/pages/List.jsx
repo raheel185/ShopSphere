@@ -38,11 +38,11 @@ const List = () => {
     </tr>
   </thead>
   <tbody>
-   
+   {console.log(list)}
    {
     list.length > 0 ?  list.map((item, index) => (
       <tr key={index} class="border-b">
-    <td class="px-6 py-4"><img src="" alt="Product" class="w-12 h-12 rounded" /></td>
+    <td class="px-6 py-4"><img src={item.image[0]} alt="Product" class="w-12 h-12 rounded" /></td>
     <td class="px-6 py-4 text-gray-900 w-[350px]">{item.name}</td>
     <td class="px-6 py-4 text-gray-600">{item.category}</td>
     <td class="px-6 py-4 text-gray-800 font-semibold">${item.price}</td>
