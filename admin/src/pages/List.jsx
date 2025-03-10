@@ -16,19 +16,17 @@ const List = ({token}) => {
         }
 
       } catch (error) {
-        
+        console.log(error)
       }
   }
   
   async function removeProduct(id){
     try {
-      
       const response = await axios.post('http://localhost:3000/api/product/remove', {id}, {headers:{token}})
       if(response.data.status){
         setList(prev => prev.filter(item => item._id !== id))
         toast.success('Product removed')
       }
-      
     } catch (error) {
       toast.error(error.message)
     }
@@ -55,7 +53,7 @@ const List = ({token}) => {
   <tbody>
   
    {
-    list.length > 0 ?  list.map((item, index) => (
+   list.length > 0 ?  list.map((item, index) => (
       <tr key={index} class="border-b">
     <td class="px-6 py-4"><img src={item.image[0]} alt="Product" class="w-12 h-12 rounded" /></td>
     <td class="px-6 py-4 text-gray-900 w-[350px]">{item.name}</td>
