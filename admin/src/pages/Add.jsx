@@ -48,6 +48,13 @@ const Add = ({token}) => {
            toast.update(loader_notification, {render: response.data.message, type: "success", isLoading: false,   autoClose: 2700, closeButton: true, })
            setName('')
            setDescription('')
+           setPrice('')
+           setImage1(false)
+           setImage2(false)
+           setImage3(false)
+           setImage4(false)
+        }else{
+          toast.update(loader_notification, {render: response.data.message, type: "error", isLoading: false,   autoClose: 2700, closeButton: true, })
         }
       } catch (error) {
         console.log(error)
