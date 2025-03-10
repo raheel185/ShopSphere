@@ -1,5 +1,6 @@
 import react, { useState } from 'react'
 import { assets } from '../assets/assets'
+import { memo } from 'react'
 
 const Add = () => {
 
@@ -19,7 +20,30 @@ const Add = () => {
   async function onSubmitHandler(event){
       event.preventDefault()
 
-      console.log('Product image add form...')
+      try {
+
+        console.log(image1)
+        const formdata = new FormData()
+
+        formdata.append('name', name)
+        formdata.append('description', description)
+        formdata.append('price', price)
+        formdata.append('category', category)
+        formdata.append('subcategory', subcategory)
+        formdata.append('bestseller', bestseller)
+        formdata.append('sizes', JSON.stringify(sizes))
+
+        image1 && formdata.append('image1', image1)
+        image2 && formdata.append('image2', image2)
+        image3 && formdata.append('image3', image3)
+        image4 && formdata.append('image4', image4)
+        
+        
+        console.log(formdata)
+        
+      } catch (error) {
+        console.log(error)
+      }
   }
 
 

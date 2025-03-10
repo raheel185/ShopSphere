@@ -7,12 +7,10 @@ const Login = ({settoken}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-  const onSubmitHandler = async (event) =>{
+  const onSubmitHandler = async (event) => {
     event.preventDefault()
       try {
-        const res = await axios.post('http://localhost:3000/api/user/admin', {
-            email,password})
-
+        const res  = await axios.post('http://localhost:3000/api/user/admin', {email,password})
         const data = await res.data
 
         if(data.status){
@@ -22,8 +20,6 @@ const Login = ({settoken}) => {
         }else{
           toast.error(data.message)
         }
-        
-
       } catch (error) {
         toast.error(error.message)
       }
