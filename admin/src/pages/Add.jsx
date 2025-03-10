@@ -1,8 +1,9 @@
 import react, { useState } from 'react'
 import { assets } from '../assets/assets'
 import { memo } from 'react'
+import axios from 'axios'
 
-const Add = () => {
+const Add = ({token}) => {
 
   const [image1, setImage1] = useState(false)
   const [image2, setImage2] = useState(false)
@@ -18,18 +19,18 @@ const Add = () => {
   const [sizes, setSizes] = useState([])
 
   async function onSubmitHandler(event){
+
       event.preventDefault()
 
       try {
 
-        console.log(image1)
         const formdata = new FormData()
 
         formdata.append('name', name)
         formdata.append('description', description)
         formdata.append('price', price)
         formdata.append('category', category)
-        formdata.append('subcategory', subcategory)
+        formdata.append('subCategory', subcategory)
         formdata.append('bestseller', bestseller)
         formdata.append('sizes', JSON.stringify(sizes))
 
@@ -38,14 +39,14 @@ const Add = () => {
         image3 && formdata.append('image3', image3)
         image4 && formdata.append('image4', image4)
         
-        
-        console.log(formdata)
+        const response = await axios.post('http://localhost:3000/api/product/add', formdata, {headers:{token}})
+
+        console.log(response)
         
       } catch (error) {
         console.log(error)
       }
   }
-
 
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3'>
