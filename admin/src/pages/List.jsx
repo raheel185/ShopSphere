@@ -38,11 +38,21 @@ const List = () => {
     </tr>
   </thead>
   <tbody>
-    {
-      list.length > 0 && list.forEach((item)=>{
-        
-      })
-    }
+   
+   {
+    list.length > 0 ?  list.map((item, index) => (
+      <tr key={index} class="border-b">
+    <td class="px-6 py-4"><img src="" alt="Product" class="w-12 h-12 rounded" /></td>
+    <td class="px-6 py-4 text-gray-900 w-[350px]">{item.name}</td>
+    <td class="px-6 py-4 text-gray-600">{item.category}</td>
+    <td class="px-6 py-4 text-gray-800 font-semibold">${item.price}</td>
+    <td class="px-6 py-4">
+      <button class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition">Edit</button>
+      <button class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition ml-2">Delete</button>
+    </td>
+  </tr>
+    )) : ''
+   }
     
   </tbody>
 </table>
