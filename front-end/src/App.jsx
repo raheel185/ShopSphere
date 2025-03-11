@@ -12,11 +12,12 @@ import Nav from './components/Nav'
 import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
 import {ToastContainer, toast} from 'react-toastify'
-import fetchProducts from './hooks/fetchProducts'
+import useFetchProducts from './hooks/useFetchProducts'
 
 const App = () => {
 
-  const {products} = fetchProducts()
+  const {products} = useFetchProducts()
+
   console.log(products)
 
   return(
