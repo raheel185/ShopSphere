@@ -13,7 +13,8 @@ const Login = () => {
 
   const [currentState, setcurState] = useState('Signup')
 
-  const onSubmitHandler = async (event) =>{
+  const onSubmitHandler = async (event) => {
+
       event.preventDefault()
 
       try {
