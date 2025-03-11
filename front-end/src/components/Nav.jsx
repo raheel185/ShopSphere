@@ -7,7 +7,12 @@ import { ShopContext } from '../context/ShopContext'
 const Nav = () => {
 
     const [visible, setvisible] = useState(false)
-    const { setShowSearch, getCartQuantity } = useContext(ShopContext)
+    const { setShowSearch, getCartQuantity, setToken } = useContext(ShopContext)
+
+    function logout(){
+        localStorage.setItem('token','')
+        setToken('')
+    }
 
   return (
     <div className='flex items-center justify-between py-5 font-medium'>
@@ -42,7 +47,7 @@ const Nav = () => {
                     <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
                         <p className='cursor-pointer hover:text-black'>My Profile</p>
                         <p className='cursor-pointer hover:text-black'>Order</p>
-                        <p className='cursor-pointer hover:text-black'>Logout</p>
+                        <p onClick={()=>logout()} className='cursor-pointer hover:text-black'>Logout</p>
                     </div>
                 </div>
             </div>
