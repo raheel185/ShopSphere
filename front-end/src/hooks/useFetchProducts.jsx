@@ -1,28 +1,28 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 
-
 const useFetchProducts = (backendUrl) => {
+
+    const [products_all, setproducts] = useState([])
 
     
 
-    const [products, setproducts] = useState([])
-
-    async function getData(){
-        try {
-            const response = await axios.get(backendUrl+'/api/product/list')
-            const data = response.data.products
-            setproducts(data)
-        } catch (error) {
-            console.log(error.message)
-        }
-    }
-
     useEffect(()=>{
+        async function getData(){
+            try {
+                const response = await axios.get(backendUrl)
+                const data = response.data.products
+                console.log(data)
+                setproducts(data)
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
+
         getData()
     },[])
 
-  return {products}
+  return {products_all}
 }
 
 export default useFetchProducts

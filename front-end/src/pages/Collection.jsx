@@ -81,11 +81,11 @@ const Collection = () => {
 
     useEffect(()=>{
       applyFilter()
-    },[subcategory, category, search, showSearch])
+    },[subcategory, category, search, showSearch, products])
 
     useEffect(()=>{
       setFilteredProducts(products)
-    },[])
+    },[products])
 
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>

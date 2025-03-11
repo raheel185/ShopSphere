@@ -8,9 +8,9 @@ export const ShopContext = createContext()
 
 const ShopContextProvider = (props) => {
 
-    const {products} = useFetchProducts('http://localhost:3000')
+    const {products_all} = useFetchProducts('http://localhost:3000/api/product/list')
     
-    //const [products, setProducts] = useState()
+    const [products, setProducts] = useState([])
     const currency = '$'
     const delivery_fee = 10
     const backendUrl = 'http://localhost:3000'
@@ -83,8 +83,13 @@ const ShopContextProvider = (props) => {
         return quantity_;
 
     }
-
  
+
+        useEffect(()=>{
+
+           setProducts(products_all)
+
+        },[products_all])
 
     useEffect(()=>{
         
