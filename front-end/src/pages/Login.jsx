@@ -11,7 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
 
-  const [currentState, setcurState] = useState('Signup')
+  const [currentState, setcurState] = useState('Login')
 
   const onSubmitHandler = async (event) => {
 
