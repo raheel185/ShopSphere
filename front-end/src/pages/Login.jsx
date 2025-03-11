@@ -1,6 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { ShopContext } from '../context/ShopContext'
 
 const Login = () => {
+
+  const { token, setToken, navigate, backendUrl } = useContext(ShopContext)
+
+  const [name, setName] = useState('')
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
 
   const [currentState, setcurState] = useState('Login')
 
