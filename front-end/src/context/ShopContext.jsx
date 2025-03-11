@@ -85,15 +85,15 @@ const ShopContextProvider = (props) => {
     }
  
 
-        useEffect(()=>{
+    useEffect(()=>{
 
-           setProducts(products_all)
+        setProducts(products_all)
 
-        },[products_all])
+    },[products_all])
 
     useEffect(()=>{
         
-        // console.log('Cart Items 000: ',cartItems)
+        
 
     },[cartItems])
 

@@ -5,9 +5,7 @@ const useFetchProducts = (backendUrl) => {
 
     const [products_all, setproducts] = useState([])
 
-    
-
-    useEffect(()=>{
+    useEffect(() => {
         async function getData(){
             try {
                 const response = await axios.get(backendUrl)
@@ -18,7 +16,6 @@ const useFetchProducts = (backendUrl) => {
                 console.log(error.message)
             }
         }
-
         getData()
     },[])
 
