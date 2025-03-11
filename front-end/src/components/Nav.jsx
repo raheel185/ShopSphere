@@ -7,11 +7,12 @@ import { ShopContext } from '../context/ShopContext'
 const Nav = () => {
 
     const [visible, setvisible] = useState(false)
-    const { setShowSearch, getCartQuantity, setToken } = useContext(ShopContext)
+    const { setShowSearch, getCartQuantity, setToken, setCartItems } = useContext(ShopContext)
 
     function logout(){
         localStorage.setItem('token','')
         setToken('')
+        setCartItems({})
     }
 
   return (
