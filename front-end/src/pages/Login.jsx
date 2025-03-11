@@ -17,12 +17,14 @@ const Login = () => {
 
       try {
           if(currentState === 'Signup'){
-
               const response = await axios.post(backendUrl + '/api/user/register', {name, email, password})
-              console.log(response.data)
+              setToken(response.data.token)
 
           }else{
-
+            const response = await axios.post(backendUrl + '/api/user/login', {email, password})
+              if(response.data.status){
+                setToken(response.data.token)
+              }
           }
       } catch (error) {
         
