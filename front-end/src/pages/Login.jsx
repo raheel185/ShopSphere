@@ -23,6 +23,7 @@ const Login = () => {
               
               if(response.data.status){
                 setToken(response.data.token)
+                localStorage.setItem('token', response.data.token)
                 toast.success(response.data.message)
               }else{
                 toast.error(response.data.message)
@@ -33,6 +34,7 @@ const Login = () => {
 
               if(response.data.status){
                 setToken(response.data.token)
+                localStorage.setItem('token', response.data.token)
                 toast.success(response.data.message)
               }else{
                 toast.error(response.data.message)
