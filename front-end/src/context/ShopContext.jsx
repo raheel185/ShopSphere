@@ -1,15 +1,19 @@
 import { createContext, useEffect, useState } from "react";
-import { products } from "../assets/assets";
+// import { products } from "../assets/assets";
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom' 
+import { useNavigate } from 'react-router-dom'
+import useFetchProducts from "../hooks/useFetchProducts";
 
 export const ShopContext = createContext()
 
 const ShopContextProvider = (props) => {
 
+    const {products} = useFetchProducts('http://localhost:3000')
+    
+    //const [products, setProducts] = useState()
     const currency = '$'
     const delivery_fee = 10
-    const backendUrl = import.meta.env.BACKEND_URL
+    const backendUrl = 'http://localhost:3000'
     const [search, setSearch] = useState('')
     const [showSearch, setShowSearch] = useState(false)
     const [cartItems, setCartItems] = useState({})
@@ -80,9 +84,11 @@ const ShopContextProvider = (props) => {
 
     }
 
+ 
+
     useEffect(()=>{
         
-        console.log('Cart Items 000: ',cartItems)
+        // console.log('Cart Items 000: ',cartItems)
 
     },[cartItems])
 
