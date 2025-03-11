@@ -72,6 +72,16 @@ async function removeProduct(req, res) {
   }
 }
 
+async function removeProduct2(req, res) {
+  try {
+    const { productId } = req.params;
+    await productModel.findByIdAndDelete(productId);
+    res.json({ status: true, message: "Product removed" });
+  } catch (error) {
+    res.json({ status: false, message: error.message });
+  }
+}
+
 async function singleProduct(req, res) {
   try {
     const { id } = req.body;
@@ -82,4 +92,10 @@ async function singleProduct(req, res) {
   }
 }
 
-export { addProduct, listProducts, removeProduct, singleProduct };
+export {
+  addProduct,
+  listProducts,
+  removeProduct,
+  singleProduct,
+  removeProduct2,
+};

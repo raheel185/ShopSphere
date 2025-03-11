@@ -22,10 +22,12 @@ const List = ({token}) => {
   
   async function removeProduct(id){
     try {
-      const response = await axios.post('http://localhost:3000/api/product/remove', {id}, {headers:{token}})
+      const response = await axios.delete(`http://localhost:3000/api/product/delete/${id}`, {headers:{token}})
       if(response.data.status){
         setList(prev => prev.filter(item => item._id !== id))
-        toast.success('Product removed')
+        toast.success(response.data.message)
+      }else{
+        toast.error(response.data.message)
       }
     } catch (error) {
       toast.error(error.message)
