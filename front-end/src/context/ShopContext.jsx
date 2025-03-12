@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from "react";
-// import { products } from "../assets/assets";
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import useFetchProducts from "../hooks/useFetchProducts";
+import axios from 'axios'
 
 export const ShopContext = createContext()
 
@@ -44,6 +44,16 @@ const ShopContextProvider = (props) => {
         data[itemId][size] = quantity
         setCartItems(data)
 
+        if(token){
+            try {
+               const response = await axios.post('http://localhost:3000/api/cart/update', {itemId, size, quantity}, {headers:{token}})
+               if(response.data.status){
+                toast.success(response.data.message)
+               } 
+            } catch (error) {
+                toast.error(error.message)
+            }
+        }
     }
 
     const addToCart = async (itemId, size) => {
@@ -69,6 +79,20 @@ const ShopContextProvider = (props) => {
         }
 
         setCartItems(cartData)
+
+        if(token){
+            try {
+
+                const response = await axios.post('http://localhost:3000/api/cart/add', {itemId, size}, {headers:{token}})
+                if(response.data.status){
+                    toast.success(response.data.message)
+                }
+
+            } catch (error) {
+                toast.error(error.message)
+            }
+        }
+        
     }
 
     const getCartQuantity = () => {
@@ -87,16 +111,35 @@ const ShopContextProvider = (props) => {
 
     }
  
+    const  getUserCart = async (token) => {
+        if(token){
+            try {
+                const response = await axios.get('http://localhost:3000/api/cart/get', {headers:{token}})
+                console.log(response)
+                if(response.data.status){
+                    let cartdata = response.data.cartData
+                    setCartItems(cartdata)
+                }else{
+                    toast.error(response.data.message)
+                }
+        } catch (error) {
+            toast(error.message)
+        }
+        }
+    }
 
-    useEffect(()=>{
+    useEffect(() => {
+        getUserCart(token) 
+        getCartQuantity()
+    },[token])
+
+    useEffect(() => {
 
         setProducts(products_all)
 
     },[products_all])
 
     useEffect(()=>{
-        
-        
 
     },[cartItems])
 

@@ -5,13 +5,13 @@ export const authUser = (req, res, next) => {
     const { token } = req.headers;
 
     if (!token) {
-      return res.json({ status: false, message: "User not authenticated" });
+      return res.json({ status: false, message: "Not Authorized Login Again" });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+    req.body.userId = decoded.id;
     next();
   } catch (error) {
-    res.json({ status: false, message: error.message });
+    return res.json({ status: false, message: error.message });
   }
 };
