@@ -6,4 +6,4 @@ async function getCartItems(req, res) {}
 
 async function updateCartItems(req, res) {}
 
-export default { addToCart, getCartItems, updateCartItems };
+export { addToCart, getCartItems, updateCartItems };
