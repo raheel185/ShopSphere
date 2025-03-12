@@ -61,7 +61,7 @@ const Login = () => {
             <hr className='border-none h-[1.5px] w-8 bg-gray-800' />
         </div>
         {
-          currentState === 'Login' ? '' :  <input onChange={(e)=>setName(e.target.value)} type="text" className='w-full px-3 py-2 border border-gray-800' placeholder='Name' required />
+          currentState === 'Login' ? '' :  <input onChange={(e) => setName(e.target.value)} type="text" className='w-full px-3 py-2 border border-gray-800' placeholder='Name' required />
         }
        
         <input onChange={(e)=>setEmail(e.target.value)} type="email" className='w-full px-3 py-2 border border-gray-800' placeholder='Email' required />
@@ -70,7 +70,7 @@ const Login = () => {
         <div className='w-full flex justify-between text-sm mt-[-8px]'>
             <p className='cursor-pointer'>Forgot your password?</p>
             {
-              currentState === 'Login' ? <p onClick={()=>setcurState('Signup')} className='cursor-pointer'>Create account</p> : <p onClick={()=>setcurState('Login')} className='cursor-pointer'>Login</p>
+              currentState === 'Login' ? <p onClick={() => setcurState('Signup')} className='cursor-pointer'>Create account</p> : <p onClick={() => setcurState('Login')} className='cursor-pointer'>Login</p>
             }
         </div>
 

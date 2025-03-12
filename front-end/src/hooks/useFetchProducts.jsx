@@ -10,7 +10,6 @@ const useFetchProducts = (backendUrl) => {
             try {
                 const response = await axios.get(backendUrl)
                 const data = response.data.products
-                console.log(data)
                 setproducts(data)
             } catch (error) {
                 console.log(error.message)
