@@ -1,4 +1,6 @@
-async function addToCart(req, res) {}
+async function addToCart(req, res) {
+  res.json({ message: "Cart API working" });
+}
 
 async function getCartItems(req, res) {}
 
