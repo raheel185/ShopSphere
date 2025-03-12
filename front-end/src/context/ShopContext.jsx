@@ -54,6 +54,7 @@ const ShopContextProvider = (props) => {
         }
 
         let cartData = structuredClone(cartItems)
+        
         if(cartData[itemId]){
             if(cartData[itemId][size]){
                 cartData[itemId][size] += 1
