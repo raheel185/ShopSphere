@@ -1,10 +1,32 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import Title from '../components/Title'
+import axios from 'axios'
 
 const Orders = () => {
 
-  const {products, currency} = useContext(ShopContext)
+  const {products,token, currency} = useContext(ShopContext)
+  const [orderData, setOrderData] = useState([])
+
+  useEffect(()=>{
+
+    const fetchdata = async () => {
+        try {
+            if(!token){
+                return null
+            }
+
+            const response = await axios.post('http://localhost:3000/api/order/userorders', {}, {headers:{token}})
+            console.log(response.data)
+
+        } catch (error) {
+          
+        }
+    }
+
+    fetchdata()
+
+  },[])
 
   return (
     <div className='border-t pt-16'>
