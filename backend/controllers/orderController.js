@@ -6,7 +6,7 @@ const placeOrderStripe = async (req, res) => {};
 
 const placeOrderRazorPay = async (req, res) => {};
 
-const allOrder = async (req, res) => {};
+const allOrders = async (req, res) => {};
 
 const userOrder = async (req, res) => {};
 
@@ -16,7 +16,7 @@ export {
   placeOrder,
   placeOrderStripe,
   placeOrderRazorPay,
-  allOrder,
+  allOrders,
   userOrder,
   updateStatus,
 };
