@@ -11,20 +11,17 @@ const Orders = ({token}) => {
   const currency = '$'
 
   async function fetchOrders(){
-
     if(!token){
-      return null
+      return null;
     }
 
     try {
-
       const response = await axios.post('http://localhost:3000/api/order/list',{},{headers:{token}})
       console.log(response.data)
       setOrders(response.data.orders)
     } catch (error) {
       console.log(error)
     }
-
   }
   
   async function updateStatus(event, orderId){
@@ -37,9 +34,9 @@ const Orders = ({token}) => {
         } catch (error) {
             console.log(error)
             toast.error(errro.message)
-    }
+      }
   }
-  
+
   useEffect(()=>{
       fetchOrders()
   },[])

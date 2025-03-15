@@ -1,5 +1,9 @@
 import orderModel from "../models/order.model.js";
 import userModel from "../models/user.model.js";
+import stripe from "stripe";
+
+const currency = "$";
+const deliveryCharge = 10;
 
 const placeOrder = async (req, res) => {
   try {
@@ -26,7 +30,63 @@ const placeOrder = async (req, res) => {
   }
 };
 
-const placeOrderStripe = async (req, res) => {};
+const placeOrderStripe = async (req, res) => {
+  try {
+    const { userId, items, amount, address } = req.body;
+    const { origin } = req.headers;
+
+    const orderData = {
+      userId,
+      items,
+      address,
+      amount,
+      paymentMethod: "COD",
+      payment: false,
+      date: Date.now(),
+    };
+
+    const newOrder = new orderModel(orderData);
+    await newOrder.save();
+
+    const line_items = items.map((item) => ({
+      price_data: {
+        currency: currency,
+        product_data: {
+          name: item.name,
+        },
+        unit_amount: item.price * 100,
+      },
+      quantity: item.quantity,
+    }));
+
+    line_items.push({
+      price_data: {
+        currency: currency,
+        product_data: {
+          name: "Delivery Charges",
+        },
+        unit_amount: deliveryCharge.price * 100,
+      },
+      quantity: 1,
+    });
+
+    const session = await stripe.checkout.sessions.create({
+      success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+      cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
+      line_items,
+      mode: "payment",
+    });
+
+    return res.json({
+      status: true,
+      session_url: session.url,
+      message: error.message,
+    });
+    //
+  } catch (error) {
+    return res.json({ status: false, message: error.message });
+  }
+};
 
 const placeOrderRazorPay = async (req, res) => {};
 
