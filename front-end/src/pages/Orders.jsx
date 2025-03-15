@@ -8,37 +8,39 @@ const Orders = () => {
   const {products,token, currency} = useContext(ShopContext)
   const [orderData, setOrderData] = useState([])
 
+  const fetchdata = async () => {
+    try {
+        if(!token){
+            return null
+        }
+        const response = await axios.post('http://localhost:3000/api/order/userorders', {}, {headers:{token}})
+        console.log('Orders : ', response.data.orders)
+
+        if(response.data.status){
+            let orderItems = []
+
+            response.data.orders.map((order)=>{
+                order.items.map((item)=>{
+                    item['status'] = order.status
+                    item['payment'] = order.payment
+                    item['paymentMethod'] = order.paymentMethod
+                    item['date'] = order.date
+
+                    orderItems.push(item)
+                })
+            })
+
+            setOrderData(orderItems.reverse())
+            // console.log(orderItems)
+        }
+    } catch (error) {
+      console.log(error.message)
+    }
+} 
+
   useEffect(()=>{
 
-    const fetchdata = async () => {
-        try {
-            if(!token){
-                return null
-            }
-            const response = await axios.post('http://localhost:3000/api/order/userorders', {}, {headers:{token}})
-            console.log('Orders : ', response.data.orders)
-
-            if(response.data.status){
-                let orderItems = []
-
-                response.data.orders.map((order)=>{
-                    order.items.map((item)=>{
-                        item['status'] = order.status
-                        item['payment'] = order.payment
-                        item['paymentMethod'] = order.paymentMethod
-                        item['date'] = order.date
-
-                        orderItems.push(item)
-                    })
-                })
-
-                setOrderData(orderItems.reverse())
-                // console.log(orderItems)
-            }
-        } catch (error) {
-          console.log(error.message)
-        }
-    }
+    
 
     fetchdata()
 
@@ -73,7 +75,7 @@ const Orders = () => {
                         <p className='min-w-2 h-2 rounded-full bg-green-500'></p>
                         <p className='text-sm md:text-base'>{item.status}</p>
                     </div>
-                    <button className='border px-4 py-2 text-sm font-medium rounded-sm'>Track Order</button>
+                    <button onClick={()=>fetchdata()} className='border px-4 py-2 text-sm font-medium rounded-sm'>Track Order</button>
                 </div>
             </div>
           ))

@@ -30,7 +30,14 @@ const placeOrderStripe = async (req, res) => {};
 
 const placeOrderRazorPay = async (req, res) => {};
 
-const allOrders = async (req, res) => {};
+const allOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({ status: true, orders });
+  } catch (error) {
+    return res.json({ status: false, message: error.message });
+  }
+};
 
 const userOrder = async (req, res) => {
   try {
@@ -44,7 +51,15 @@ const userOrder = async (req, res) => {
   }
 };
 
-const updateStatus = async (req, res) => {};
+const updateStatus = async (req, res) => {
+  try {
+    const { orderId, status } = req.body;
+    await orderModel.findByIdAndUpdate(orderId, { status });
+    res.json({ status: true, message: "Status updated" });
+  } catch (error) {
+    res.json({ status: false, message: error.message });
+  }
+};
 
 export {
   placeOrder,
