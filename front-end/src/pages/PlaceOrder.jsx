@@ -57,6 +57,8 @@ const PlaceOrder = () => {
                 amount: getCartAmount() + delivery_fee
             }
 
+            // console.log('Payment Method ->', method)
+
             switch(method){
                 case 'cod':
                     const response = await axios.post('http://localhost:3000/api/order/place', orderData, {headers:{token}})
@@ -65,9 +67,20 @@ const PlaceOrder = () => {
                         navigate('/orders')
                     }
                     break;
-
+                case 'stripe':
+                    // console.log('Payment Method 101 ->', token)
+                    const responseStripe = await axios.post('http://localhost:3000/api/order/stripe', orderData, {headers:{token}})
+                    
+                    if(responseStripe.data.status){
+                       let {session_url} =  responseStripe.data
+                       setCartItems({})
+                       window.location.replace(session_url)
+                    }else{
+                        toast.error(responseStripe.data.message)
+                    }
+                    break;
                 default:
-                    break
+                    break;
             }
 
         } catch (error) {

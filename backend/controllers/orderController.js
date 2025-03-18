@@ -1,9 +1,8 @@
 import orderModel from "../models/order.model.js";
 import userModel from "../models/user.model.js";
-import stripe from "stripe";
+import Stripe from "stripe";
 
-const currency = "$";
-const deliveryCharge = 10;
+const stripe = new Stripe(process.env.STRIPE_SECRET); // ✅ Initialize Stripe with your secret key
 
 const placeOrder = async (req, res) => {
   try {
@@ -35,6 +34,9 @@ const placeOrderStripe = async (req, res) => {
     const { userId, items, amount, address } = req.body;
     const { origin } = req.headers;
 
+    const currency = "usd"; // ✅ Ensure currency is defined
+    const deliveryCharge = { price: 10 }; // ✅ Define delivery charge
+
     const orderData = {
       userId,
       items,
@@ -50,22 +52,22 @@ const placeOrderStripe = async (req, res) => {
 
     const line_items = items.map((item) => ({
       price_data: {
-        currency: currency,
+        currency,
         product_data: {
           name: item.name,
         },
-        unit_amount: item.price * 100,
+        unit_amount: Math.round(Number(item.price) * 100), // ✅ Ensure integer
       },
-      quantity: item.quantity,
+      quantity: Number(item.quantity), // ✅ Ensure number
     }));
 
     line_items.push({
       price_data: {
-        currency: currency,
+        currency,
         product_data: {
           name: "Delivery Charges",
         },
-        unit_amount: deliveryCharge.price * 100,
+        unit_amount: Math.round(Number(deliveryCharge.price) * 100), // ✅ Ensure integer
       },
       quantity: 1,
     });
@@ -80,9 +82,23 @@ const placeOrderStripe = async (req, res) => {
     return res.json({
       status: true,
       session_url: session.url,
-      message: error.message,
     });
-    //
+  } catch (error) {
+    return res.json({ status: false, message: error.message });
+  }
+};
+
+const verifyStripe = async (req, res) => {
+  try {
+    const { orderId, success, userId } = req.body;
+    if (success === "true") {
+      await orderModel.findByIdAndUpdate(orderId, { payment: true });
+      await userModel.findByIdAndUpdate(userId, { cartData: {} });
+      res.json({ status: true });
+    } else {
+      await orderModel.findByIdAndDelete(orderId);
+      res.json({ status: false });
+    }
   } catch (error) {
     return res.json({ status: false, message: error.message });
   }
@@ -128,4 +144,5 @@ export {
   allOrders,
   userOrder,
   updateStatus,
+  verifyStripe,
 };
