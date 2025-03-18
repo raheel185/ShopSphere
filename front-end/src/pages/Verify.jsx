@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext'
 import axios from 'axios'
+import {toast} from 'react-toastify'
 
 const Verify = () => {
 
@@ -27,7 +28,8 @@ const Verify = () => {
                 navigate('/')
             }
         } catch (error) {
-            console.log(error)
+            console.log(error.message)
+            toast.error(error.message)
         }
     }
 
